@@ -135,3 +135,7 @@ fastapi.db
 charity_fund.db
 test.db
 .vscode/
+
+*.db
+*.db-journal
+requirements-local.txt

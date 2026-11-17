@@ -41,7 +41,7 @@ async def create_charityproject(
 async def get_all_charityprojects(
     session: AsyncSession = Depends(get_async_session)
 ):
-    """Получение списка всех благотворительных проектов."""
+    """Получение списка всех экологических инициатив."""
     return await charityproject_crud.get_multi(session)
 
 

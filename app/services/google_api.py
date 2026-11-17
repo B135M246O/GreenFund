@@ -13,7 +13,7 @@ async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
     now_date_time = datetime.now().strftime(G_FORMAT)
     service = await wrapper_services.discover('sheets', G_VERSION_SHEETS)
     spreadsheets_body = {
-        'properties': {'title': f'QRKot_Отчет на {now_date_time}',
+        'properties': {'title': f'GreenFund — отчет на {now_date_time}',
                        'locale': G_LOCALE},
         'sheets': [{
             'properties': {'sheetType': 'GRID',
@@ -59,8 +59,8 @@ async def spreadsheets_update_value(
     service = await wrapper_services.discover('sheets', G_VERSION_SHEETS)
     table_values = [
         ['Отчет от', now_date_time],
-        ['Топ проектов по скорости закрытия'],
-        ['Название проекта', 'Время сбора', 'Описание']
+        ['Экологические инициативы по скорости закрытия сбора'],
+        ['Инициатива', 'Время сбора', 'Описание']
     ]
     for project in projects:
         new_row = [

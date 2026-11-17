@@ -31,7 +31,7 @@ async def check_existence(
     if project is None:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
-            detail=f'Благотворительный проект по id: {project_id} не найден'
+            detail=f'Экологическая инициатива по id: {project_id} не найден'
         )
     return project
 

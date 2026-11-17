@@ -8,20 +8,20 @@ def charity_project(freezer, mixer):
     freezer.move_to('2010-10-10')
     return mixer.blend(
         'app.models.charity_project.CharityProject',
-        name='chimichangas4life',
-        description='Huge fan of chimichangas. Wanna buy a lot',
+        name='Школьная аллея',
+        description='Саженцы и ограждения для школьной аллеи',
         full_amount=1000000,
         create_date=datetime.now(),
     )
 
 
 @pytest.fixture
-def charity_project_nunchaku(freezer, mixer):
+def charity_project_cleanup(freezer, mixer):
     freezer.move_to('2010-10-10')
     return mixer.blend(
         'app.models.charity_project.CharityProject',
-        name='nunchaku',
-        description='Nunchaku is better',
+        name='Чистый берег',
+        description='Мешки, перчатки и вывоз мусора с берега',
         full_amount=5000000,
         create_date=datetime.now(),
     )
@@ -32,8 +32,8 @@ def small_fully_charity_project(freezer, mixer):
     freezer.move_to('2010-10-10')
     return mixer.blend(
         'app.models.charity_project.CharityProject',
-        name='1M$ for ur project',
-        description='Wanna buy you project',
+        name='Городской парк',
+        description='Восстановление городского парка',
         full_amount=100,
         fully_invested=True,
         close_date=datetime.strptime('2010-10-11T00:00:00Z', '%Y-%m-%dT%H:%M:%SZ'),
@@ -46,8 +46,8 @@ def charity_project_little_invested(freezer, mixer):
     freezer.move_to('2010-10-10')
     return mixer.blend(
         'app.models.charity_project.CharityProject',
-        name='chimichangas4life',
-        description='Huge fan of chimichangas. Wanna buy a lot',
+        name='Школьная аллея',
+        description='Саженцы и ограждения для школьной аллеи',
         full_amount=1000000,
         invested_amount=100,
         create_date=datetime.now(),
@@ -59,8 +59,8 @@ def closed_charity_project(freezer, mixer):
     freezer.move_to('2010-10-10')
     return mixer.blend(
         'app.models.charity_project.CharityProject',
-        name='chimichangas4life',
-        description='Huge fan of chimichangas. Wanna buy a lot',
+        name='Школьная аллея',
+        description='Саженцы и ограждения для школьной аллеи',
         full_amount=100,
         invested_amount=100,
         fully_invested=True,
@@ -75,7 +75,7 @@ def donation(freezer, mixer):
     return mixer.blend(
         'app.models.donation.Donation',
         user_id=2,
-        comment='To you for chimichangas',
+        comment='На озеленение',
         full_amount=100,
         create_date=datetime.now(),
     )
@@ -87,7 +87,7 @@ def another_donation(freezer, mixer):
     return mixer.blend(
         'app.models.donation.Donation',
         user_id=1,
-        comment='From admin',
+        comment='На уборку от администратора',
         full_amount=2000,
         create_date=datetime.now(),
     )

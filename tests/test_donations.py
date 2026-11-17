@@ -10,9 +10,9 @@ import pytest
         {'full_amount': 10, 'id': 1},
     ),
     (
-        {'full_amount': 5, 'comment': 'To you for chimichangas'},
+        {'full_amount': 5, 'comment': 'На озеленение'},
         ['full_amount', 'id', 'create_date', 'comment'],
-        {'full_amount': 5, 'id': 1, 'comment': 'To you for chimichangas'},
+        {'full_amount': 5, 'id': 1, 'comment': 'На озеленение'},
     ),
 ])
 def test_create_donation(user_client, json, keys, expected_data):
@@ -31,7 +31,7 @@ def test_create_donation(user_client, json, keys, expected_data):
 
 
 @pytest.mark.parametrize('json', [
-    {'comment': 'To you for chimichangas'},
+    {'comment': 'На озеленение'},
     {'full_amount': -1},
     {'full_amount': None},
     {'fully_invested': True},
@@ -70,7 +70,7 @@ def test_get_user_donation(user_client, donation):
         f'При получении списка пожертвований пользователя в ответе должны быть ключи `{keys}`.'
     )
     assert response.json() == [{
-        'comment': 'To you for chimichangas',
+        'comment': 'На озеленение',
         'create_date': '2011-11-11T00:00:00',
         'full_amount': 100,
         'id': 1,
@@ -105,7 +105,7 @@ def test_get_all_donations(superuser_client, donation, another_donation):
     data = response.json()
     assert data == [
         {
-            'comment': 'To you for chimichangas',
+            'comment': 'На озеленение',
             'create_date': '2011-11-11T00:00:00',
             'full_amount': 100,
             'id': 1,
@@ -114,7 +114,7 @@ def test_get_all_donations(superuser_client, donation, another_donation):
             'fully_invested': False,
         },
         {
-            'comment': 'From admin',
+            'comment': 'На уборку от администратора',
             'create_date': '2012-12-12T00:00:00',
             'full_amount': 2000,
             'id': 2,

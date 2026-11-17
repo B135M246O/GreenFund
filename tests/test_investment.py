@@ -23,7 +23,7 @@ def test_project_exist_non_donations(superuser_client, charity_project):
     )
 
 
-def test_fully_invested_amount_for_two_projects(user_client, charity_project, charity_project_nunchaku):
+def test_fully_invested_amount_for_two_projects(user_client, charity_project, charity_project_cleanup):
     """Создано 2 пустых проекта. Тест создает 2 пожертвования которые полностью покрывают инвестиции первого проекта. Второй проект должен оставаться не инвестированным."""
     user_client.post('/donation/', json={
         'full_amount': 500000,
@@ -32,16 +32,16 @@ def test_fully_invested_amount_for_two_projects(user_client, charity_project, ch
         'full_amount': 500000,
     })
     assert charity_project.fully_invested, test_fully_invested_amount_for_two_projects.__doc__
-    assert not charity_project_nunchaku.fully_invested, test_fully_invested_amount_for_two_projects.__doc__
-    assert charity_project_nunchaku.invested_amount == 0, test_fully_invested_amount_for_two_projects.__doc__
+    assert not charity_project_cleanup.fully_invested, test_fully_invested_amount_for_two_projects.__doc__
+    assert charity_project_cleanup.invested_amount == 0, test_fully_invested_amount_for_two_projects.__doc__
 
 
-def test_donation_to_little_invest_project(user_client, charity_project_little_invested, charity_project_nunchaku):
+def test_donation_to_little_invest_project(user_client, charity_project_little_invested, charity_project_cleanup):
     """Создано 2 проекта, один из которых частично инвестирован. Тест создает пожертвование. В первый проект пожертвования должны добавиться, а второй остатся не тронутым."""
     user_client.post('/donation/', json={
         'full_amount': 900,
     })
     assert not charity_project_little_invested.fully_invested, test_donation_to_little_invest_project.__doc__
     assert charity_project_little_invested.invested_amount == 1000, test_donation_to_little_invest_project.__doc__
-    assert not charity_project_nunchaku.fully_invested, test_donation_to_little_invest_project.__doc__
-    assert charity_project_nunchaku.invested_amount == 0, test_donation_to_little_invest_project.__doc__
+    assert not charity_project_cleanup.fully_invested, test_donation_to_little_invest_project.__doc__
+    assert charity_project_cleanup.invested_amount == 0, test_donation_to_little_invest_project.__doc__

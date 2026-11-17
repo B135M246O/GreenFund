@@ -2,8 +2,8 @@
 
 def test_register(test_client):
     response = test_client.post('/auth/register', json={
-        'email': 'dead@pool.com',
-        'password': 'chimichangas4life',
+        'email': 'volunteer@example.com',
+        'password': 'greenfund-test-password',
     })
     assert response.status_code == 201, (
         'При регистрации пользователя должен возвращаться статус-код 201.'
@@ -15,7 +15,7 @@ def test_register(test_client):
     )
     data.pop('id')
     assert data == {
-        'email': 'dead@pool.com',
+        'email': 'volunteer@example.com',
         'is_active': True,
         'is_superuser': False,
         'is_verified': False,
@@ -24,7 +24,7 @@ def test_register(test_client):
 
 def test_register_invalid_pass(user_client):
     response = user_client.post('/auth/register', json={
-        'email': 'dead@pool.com',
+        'email': 'volunteer@example.com',
         'password': '$',
     })
     assert response.status_code == 400, (

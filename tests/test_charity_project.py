@@ -7,7 +7,7 @@ import pytest
     "invalid_name",
     [
         "",
-        "lovechimichangasbutnunchakuisbetternunchakis4life" * 3,
+        "ecologicalinitiativewithaverylongfundraisingprojectname" * 3,
         None,
     ],
 )
@@ -115,18 +115,18 @@ def test_get_charity_project(user_client, charity_project):
     assert response.json() == [
         {
             "create_date": "2010-10-10T00:00:00",
-            "description": "Huge fan of chimichangas. Wanna buy a lot",
+            "description": "Саженцы и ограждения для школьной аллеи",
             "full_amount": 1000000,
             "fully_invested": False,
             "id": 1,
             "invested_amount": 0,
-            "name": "chimichangas4life",
+            "name": "Школьная аллея",
         }
     ], "При GET-запросе к эндпоинту `/charity_project/` тело ответа API отличается от ожидаемого."
 
 
 def test_get_all_charity_project(
-    user_client, charity_project, charity_project_nunchaku
+    user_client, charity_project, charity_project_cleanup
 ):
     response = user_client.get("/charity_project/")
     assert (
@@ -157,21 +157,21 @@ def test_get_all_charity_project(
     assert response.json() == [
         {
             "create_date": "2010-10-10T00:00:00",
-            "description": "Huge fan of chimichangas. Wanna buy a lot",
+            "description": "Саженцы и ограждения для школьной аллеи",
             "full_amount": 1000000,
             "fully_invested": False,
             "id": 1,
             "invested_amount": 0,
-            "name": "chimichangas4life",
+            "name": "Школьная аллея",
         },
         {
             "create_date": "2010-10-10T00:00:00",
-            "description": "Nunchaku is better",
+            "description": "Мешки, перчатки и вывоз мусора с берега",
             "full_amount": 5000000,
             "fully_invested": False,
             "id": 2,
             "invested_amount": 0,
-            "name": "nunchaku",
+            "name": "Чистый берег",
         },
     ], "При запросе всех проектов тело ответа API отличается от ожидаемого."
 
@@ -280,8 +280,8 @@ def test_delete_charity_project(superuser_client, charity_project):
         sorted(list(data.keys())) == keys
     ), f"При удалении проекта в ответе API должны быть ключи `{keys}`."
     assert data == {
-        "name": "chimichangas4life",
-        "description": "Huge fan of chimichangas. Wanna buy a lot",
+        "name": "Школьная аллея",
+        "description": "Саженцы и ограждения для школьной аллеи",
         "full_amount": 1000000,
         "id": 1,
         "invested_amount": 0,
@@ -308,8 +308,8 @@ def test_delete_charity_project_invalid_id(superuser_client):
         (
             {"full_amount": 10},
             {
-                "name": "chimichangas4life",
-                "description": "Huge fan of chimichangas. Wanna buy a lot",
+                "name": "Школьная аллея",
+                "description": "Саженцы и ограждения для школьной аллеи",
                 "full_amount": 10,
                 "id": 1,
                 "invested_amount": 0,
@@ -322,7 +322,7 @@ def test_delete_charity_project_invalid_id(superuser_client):
             {"name": "chimi"},
             {
                 "name": "chimi",
-                "description": "Huge fan of chimichangas. Wanna buy a lot",
+                "description": "Саженцы и ограждения для школьной аллеи",
                 "full_amount": 1000000,
                 "id": 1,
                 "invested_amount": 0,
@@ -334,7 +334,7 @@ def test_delete_charity_project_invalid_id(superuser_client):
         (
             {"description": "Give me the money!"},
             {
-                "name": "chimichangas4life",
+                "name": "Школьная аллея",
                 "description": "Give me the money!",
                 "full_amount": 1000000,
                 "id": 1,
@@ -413,12 +413,12 @@ def test_update_charity_project_invalid(superuser_client, charity_project, json)
     )
 
 
-def test_update_charity_project_same_name(superuser_client, charity_project, charity_project_nunchaku):
+def test_update_charity_project_same_name(superuser_client, charity_project, charity_project_cleanup):
     response = superuser_client.patch(
         '/charity_project/1',
         json={
-            'name': 'nunchaku',
-            'description': 'Huge fan of chimichangas. Wanna buy a lot',
+            'name': 'Чистый берег',
+            'description': 'Саженцы и ограждения для школьной аллеи',
             'full_amount': 1000000,
         },
     )
@@ -438,8 +438,8 @@ def test_update_charity_project_full_amount_smaller_already_invested(superuser_c
     response = superuser_client.patch(
         '/charity_project/1',
         json={
-            'name': 'nunchaku',
-            'description': 'Huge fan of chimichangas. Wanna buy a lot',
+            'name': 'Чистый берег',
+            'description': 'Саженцы и ограждения для школьной аллеи',
             'invested_amount': full_amount,
         },
     )
@@ -506,8 +506,8 @@ def test_create_charity_project_same_name(superuser_client, charity_project):
     response = superuser_client.post(
         "/charity_project/",
         json={
-            'name': 'chimichangas4life',
-            'description': 'Huge fan of chimichangas. Wanna buy a lot',
+            'name': 'Школьная аллея',
+            'description': 'Саженцы и ограждения для школьной аллеи',
             'full_amount': 1000000,
         },
     )
@@ -527,25 +527,25 @@ def test_create_charity_project_same_name(superuser_client, charity_project):
 
 
 def test_create_charity_project_diff_time(superuser_client):
-    response_chimichangs = superuser_client.post(
+    response_alley = superuser_client.post(
         "/charity_project/",
         json={
-            'name': 'chimichangas4life',
-            'description': 'Huge fan of chimichangas. Wanna buy a lot',
+            'name': 'Школьная аллея',
+            'description': 'Саженцы и ограждения для школьной аллеи',
             'full_amount': 1000000,
         },
     )
-    response_nunchaku = superuser_client.post(
+    response_cleanup = superuser_client.post(
         "/charity_project/",
         json={
-            'name': 'nunchaku',
-            'description': 'Nunchaku is better',
+            'name': 'Чистый берег',
+            'description': 'Мешки, перчатки и вывоз мусора с берега',
             'full_amount': 5000000,
         },
     )
-    chimichangas_create_date = response_chimichangs.json()['create_date']
-    nunchakus_create_date = response_nunchaku.json()['create_date']
-    assert chimichangas_create_date != nunchakus_create_date, (
+    alley_create_date = response_alley.json()['create_date']
+    cleanup_create_date = response_cleanup.json()['create_date']
+    assert alley_create_date != cleanup_create_date, (
         'При создании двух проектов подряд время создания не отличается. '
         'Проверьте значение по умолчанию у атрибута `create_date`'
     )
@@ -595,7 +595,7 @@ def test_delete_charity_project_already_closed(superuser_client, closed_charity_
     )
 
 
-def test_get_all_charity_project_not_auth_user(test_client, charity_project, charity_project_nunchaku):
+def test_get_all_charity_project_not_auth_user(test_client, charity_project, charity_project_cleanup):
     response = test_client.get("/charity_project/")
     assert response.status_code == 200, (
         'Список проектов должен быть доступен даже неавторизованному пользователю.'
@@ -604,20 +604,20 @@ def test_get_all_charity_project_not_auth_user(test_client, charity_project, cha
     assert data == [
         {
             'create_date': '2010-10-10T00:00:00',
-            'description': 'Huge fan of chimichangas. Wanna buy a lot',
+            'description': 'Саженцы и ограждения для школьной аллеи',
             'full_amount': 1000000,
             'fully_invested': False,
             'id': 1,
             'invested_amount': 0,
-            'name': 'chimichangas4life'
+            'name': 'Школьная аллея'
         },
         {
             'create_date': '2010-10-10T00:00:00',
-            'description': 'Nunchaku is better',
+            'description': 'Мешки, перчатки и вывоз мусора с берега',
             'full_amount': 5000000,
             'fully_invested': False,
             'id': 2,
             'invested_amount': 0,
-            'name': 'nunchaku'
+            'name': 'Чистый берег'
         }
     ]

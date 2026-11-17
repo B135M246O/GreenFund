@@ -1,13 +1,16 @@
 from typing import Optional
+from secrets import token_urlsafe
 
-from pydantic import BaseSettings, EmailStr
+from pydantic import BaseSettings, EmailStr, Field
 
 
 class Settings(BaseSettings):
-    app_title: str = 'Кошачий благотворительный фонд'
-    app_description: str = 'Сервис для поддержки котиков'
-    database_url: str = 'sqlite+aiosqlite:///./charity_fund.db'
-    secret: str = 'SECRET'
+    app_title: str = 'GreenFund'
+    app_description: str = (
+        'Сбор средств на озеленение, уборку территорий и восстановление парков'
+    )
+    database_url: str = 'sqlite+aiosqlite:///./greenfund.db'
+    secret: str = Field(default_factory=lambda: token_urlsafe(32))
     first_superuser_email: Optional[EmailStr] = None
     first_superuser_password: Optional[str] = None
     type: Optional[str] = None
